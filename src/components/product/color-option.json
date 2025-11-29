@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_product_color_options",
+  "info": {
+    "displayName": "Color Option"
+  },
+  "attributes": {
+    "name": { "type": "string" },
+    "hex": { "type": "string" }
+  }
+}
