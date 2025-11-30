@@ -1,0 +1,61 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Git
+.git
+.gitignore
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*.iml
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# Development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build artifacts
+dist
+build
+.next
+out
+
+# Temporary files
+.tmp
+.cache
+
+# OS files
+Thumbs.db
+
+# Documentation
+README.md
+LICENSE
+CHANGELOG.md
+
+# Test files
+__tests__
+*.test.ts
+*.spec.ts
+
+# Package lock for production
+package-lock.json
+
+# Strapi development
+.strapi
+.cache
+.tmp
