@@ -27,6 +27,7 @@
     "react-router-dom": "^6.0.0",
     "strapi-plugin-ckeditor": "^0.1.0",
     "strapi-plugin-react-editorjs": "^1.5.1",
+    "stripe": "^20.0.0",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
@@ -36,7 +37,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=20.0.0 <=24.x.x",
+    "node": ">=20.0.0",
     "npm": ">=6.0.0"
   },
   "strapi": {

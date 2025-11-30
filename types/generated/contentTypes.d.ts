@@ -569,11 +569,11 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<
-      ['pending', 'paid', 'failed', 'shipped']
+    payment_status: Schema.Attribute.Enumeration<
+      ['pending', 'paid', 'failed', 'refunded', 'shipped']
     > &
       Schema.Attribute.DefaultTo<'pending'>;
+    publishedAt: Schema.Attribute.DateTime;
     stripe_payment_intent: Schema.Attribute.String & Schema.Attribute.Unique;
     stripe_session_id: Schema.Attribute.String & Schema.Attribute.Unique;
     total_amount: Schema.Attribute.Decimal & Schema.Attribute.Required;
