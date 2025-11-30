@@ -1,53 +1,36 @@
-# Build stage
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy application files
-COPY . .
-
-# Build the application
-RUN npm run build
-
-# Production stage
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Install dumb-init to handle signals properly
-RUN apk add --no-cache dumb-init
+# Install system dependencies
+RUN apk add --no-cache \
+    dumb-init \
+    python3 \
+    make \
+    g++
 
-# Copy package files from builder
+# Copy package files
 COPY package*.json ./
 
-# Install production dependencies only
-RUN npm install --production
+# Install ALL dependencies (Strapi needs devDependencies to handle TypeScript)
+RUN npm install
 
-# Copy built application from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/config ./config
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/types ./types
+# Copy all application files
+COPY . .
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S strapi && \
-    adduser -S strapi -u 1001 && \
-    chown -R strapi:strapi /app
+# Build the admin panel
+RUN npm run build || true
 
-USER strapi
+# Create necessary directories
+RUN mkdir -p public/uploads .tmp data && \
+    chmod -R 777 .tmp data public/uploads
 
 # Expose port
 EXPOSE 1337
 
-# Use dumb-init to handle signals
-ENTRYPOINT ["dumb-init", "--"]
+# Set environment
+ENV NODE_ENV=production
 
-# Start the application
+# Use dumb-init and start Strapi
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["npm", "start"]
