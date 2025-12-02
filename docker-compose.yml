@@ -10,12 +10,11 @@ services:
     env_file:
       - .env
     environment:
-      # Override any env variables if needed for Docker
       HOST: 0.0.0.0
       PORT: 1337
       FRONTEND_URL: http://72.61.203.223
     ports:
-      - "1337:1337"
+      - '1337:1337'
     volumes:
       # Persist database
       - ./data:/app/.tmp
@@ -24,7 +23,15 @@ services:
     networks:
       - strapi-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:1337/admin"]
+      test:
+        [
+          'CMD',
+          'wget',
+          '--quiet',
+          '--tries=1',
+          '--spider',
+          'http://localhost:1337/admin',
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
