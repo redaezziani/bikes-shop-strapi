@@ -1,11 +1,19 @@
 {
   "collectionName": "components_product_specs",
   "info": {
-    "displayName": "Specs"
+    "displayName": "Spec"
   },
   "attributes": {
-    "speed": { "type": "string" },
-    "range": { "type": "string" },
-    "battery": { "type": "string" }
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "measure": {
+      "type": "string"
+    }
   }
 }

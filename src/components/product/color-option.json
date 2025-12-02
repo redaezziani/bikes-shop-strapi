@@ -5,6 +5,10 @@
   },
   "attributes": {
     "name": { "type": "string" },
-    "hex": { "type": "string" }
+    "hex": { "type": "string" },
+    "quantity": {
+      "type": "integer",
+      "default": 0
+    }
   }
 }

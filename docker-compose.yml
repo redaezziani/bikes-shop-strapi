@@ -13,7 +13,7 @@ services:
       # Override any env variables if needed for Docker
       HOST: 0.0.0.0
       PORT: 1337
-      FRONTEND_URL: http://72.61.203.223:3000
+      FRONTEND_URL: http://72.61.203.223
     ports:
       - "1337:1337"
     volumes:

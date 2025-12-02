@@ -8,18 +8,19 @@ export interface ProductColorOption extends Struct.ComponentSchema {
   attributes: {
     hex: Schema.Attribute.String;
     name: Schema.Attribute.String;
+    quantity: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
   };
 }
 
 export interface ProductSpecs extends Struct.ComponentSchema {
   collectionName: 'components_product_specs';
   info: {
-    displayName: 'Specs';
+    displayName: 'Spec';
   };
   attributes: {
-    battery: Schema.Attribute.String;
-    range: Schema.Attribute.String;
-    speed: Schema.Attribute.String;
+    measure: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 

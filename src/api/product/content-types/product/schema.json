@@ -39,6 +39,11 @@
       "required": false,
       "allowedTypes": ["images"]
     },
+    "specs_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
 
     "category": {
       "type": "enumeration",
@@ -47,7 +52,7 @@
     },
     "specs": {
       "type": "component",
-      "repeatable": false,
+      "repeatable": true,
       "component": "product.specs"
     },
     "colors": {
