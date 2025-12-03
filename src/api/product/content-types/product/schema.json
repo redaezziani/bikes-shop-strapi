@@ -63,7 +63,8 @@
     "available_accessories": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::accessory.accessory"
+      "target": "api::accessory.accessory",
+      "mappedBy": "compatible_products"
     },
     "slug": {
       "type": "uid",
