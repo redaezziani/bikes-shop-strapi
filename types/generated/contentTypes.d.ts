@@ -663,7 +663,7 @@ export interface ApiSectionOneSectionOne extends Struct.CollectionTypeSchema {
   collectionName: 'section_ones';
   info: {
     description: 'Section One model with cover image, title, description, product link, and external link';
-    displayName: 'Section One';
+    displayName: 'Home Section One';
     pluralName: 'section-ones';
     singularName: 'section-one';
   };
@@ -671,6 +671,7 @@ export interface ApiSectionOneSectionOne extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    button_text: Schema.Attribute.String;
     cover_image: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -696,7 +697,7 @@ export interface ApiSectionTwoSectionTwo extends Struct.CollectionTypeSchema {
   collectionName: 'section_twos';
   info: {
     description: 'Section Two model with cover image, title, description, product link, and external link';
-    displayName: 'Section Two';
+    displayName: 'Home Section Two';
     pluralName: 'section-twos';
     singularName: 'section-two';
   };
@@ -704,6 +705,7 @@ export interface ApiSectionTwoSectionTwo extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    button_text: Schema.Attribute.String;
     cover_image: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

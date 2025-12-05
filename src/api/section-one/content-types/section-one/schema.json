@@ -3,7 +3,7 @@
   "info": {
     "singularName": "section-one",
     "pluralName": "section-ones",
-    "displayName": "Section One",
+    "displayName": "Home Section One",
     "description": "Section One model with cover image, title, description, product link, and external link"
   },
   "options": {
@@ -29,6 +29,10 @@
     },
     "external_link": {
       "type": "string"
+    },
+    "button_text": {
+      "type": "string",
+      "required": false
     }
   }
 }

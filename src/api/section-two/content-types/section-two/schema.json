@@ -3,7 +3,7 @@
   "info": {
     "singularName": "section-two",
     "pluralName": "section-twos",
-    "displayName": "Section Two",
+    "displayName": "Home Section Two",
     "description": "Section Two model with cover image, title, description, product link, and external link"
   },
   "options": {
@@ -29,6 +29,10 @@
     },
     "external_link": {
       "type": "string"
+    },
+    "button_text": {
+      "type": "string",
+      "required": false
     }
   }
 }
