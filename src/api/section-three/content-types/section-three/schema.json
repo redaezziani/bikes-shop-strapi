@@ -1,0 +1,33 @@
+{
+  "collectionName": "section_threes",
+  "info": {
+    "singularName": "section-three",
+    "pluralName": "section-threes",
+    "displayName": "Home Section Three",
+    "description": "Section Three model with cover image, title, description, link, and button text"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cover_image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "link": {
+      "type": "string"
+    },
+    "button_text": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

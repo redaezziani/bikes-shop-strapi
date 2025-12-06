@@ -693,6 +693,40 @@ export interface ApiSectionOneSectionOne extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSectionThreeSectionThree
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'section_threes';
+  info: {
+    description: 'Section Three model with cover image, title, description, link, and button text';
+    displayName: 'Home Section Three';
+    pluralName: 'section-threes';
+    singularName: 'section-three';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    button_text: Schema.Attribute.String;
+    cover_image: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::section-three.section-three'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSectionTwoSectionTwo extends Struct.CollectionTypeSchema {
   collectionName: 'section_twos';
   info: {
@@ -1244,6 +1278,7 @@ declare module '@strapi/strapi' {
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::section-one.section-one': ApiSectionOneSectionOne;
+      'api::section-three.section-three': ApiSectionThreeSectionThree;
       'api::section-two.section-two': ApiSectionTwoSectionTwo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
