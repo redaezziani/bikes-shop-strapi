@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -12,14 +12,14 @@ RUN apk add --no-cache \
 # Copy package files
 COPY package*.json ./
 
-# Install ALL dependencies (Strapi needs devDependencies to handle TypeScript)
-RUN npm install
+# Install dependencies
+RUN npm ci --legacy-peer-deps
 
 # Copy all application files
 COPY . .
 
 # Build the admin panel
-RUN npm run build || true
+RUN npm run build
 
 # Create necessary directories
 RUN mkdir -p public/uploads .tmp data && \
