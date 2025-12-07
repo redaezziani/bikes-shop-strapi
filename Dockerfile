@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:22-alpine AS deps
 
 WORKDIR /app
 
@@ -9,13 +9,27 @@ RUN apk add --no-cache \
     make \
     g++
 
+# Copy only package files first (for caching)
+COPY package*.json ./
+
+# Install dependencies - this layer will be cached
+RUN npm install --legacy-peer-deps
+
+# Production stage
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Install dumb-init
+RUN apk add --no-cache dumb-init
+
+# Copy node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --legacy-peer-deps
-
-# Copy all application files
+# Copy source code
 COPY . .
 
 # Create necessary directories
@@ -28,7 +42,6 @@ EXPOSE 1337
 # Set environment
 ENV NODE_ENV=production
 
-# Use dumb-init and start Strapi
-# Build will happen on first start
+# Build and start
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["sh", "-c", "npm run build && npm start"]
