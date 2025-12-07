@@ -12,18 +12,15 @@ RUN apk add --no-cache \
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (use install instead of ci)
+# Install dependencies
 RUN npm install --legacy-peer-deps
 
 # Copy all application files
 COPY . .
 
-# Build the admin panel
-RUN npm run build
-
 # Create necessary directories
-RUN mkdir -p public/uploads .tmp data && \
-    chmod -R 777 .tmp data public/uploads
+RUN mkdir -p public/uploads .tmp data build && \
+    chmod -R 777 .tmp data public/uploads build
 
 # Expose port
 EXPOSE 1337
@@ -32,5 +29,6 @@ EXPOSE 1337
 ENV NODE_ENV=production
 
 # Use dumb-init and start Strapi
+# Build will happen on first start
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npm run build && npm start"]
