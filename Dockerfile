@@ -17,7 +17,7 @@ RUN npm install --legacy-peer-deps
 # Copy source code
 COPY . .
 
-# Build admin panel HERE (during image build)
+# Build admin panel
 RUN npm run build
 
 # Production stage
@@ -28,17 +28,10 @@ WORKDIR /app
 # Install only runtime dependencies
 RUN apk add --no-cache dumb-init
 
-# Copy built files from builder
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/config ./config
-COPY --from=builder /app/database ./database
-COPY --from=builder /app/src ./src
+# Copy everything from builder
+COPY --from=builder /app ./
 
-# Create necessary directories
+# Create necessary directories with correct permissions
 RUN mkdir -p public/uploads .tmp data && \
     chmod -R 777 .tmp data public/uploads
 
