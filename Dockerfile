@@ -12,8 +12,8 @@ RUN apk add --no-cache \
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --legacy-peer-deps
+# Install dependencies (use install instead of ci)
+RUN npm install --legacy-peer-deps
 
 # Copy all application files
 COPY . .
