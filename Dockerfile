@@ -1,47 +1,50 @@
-FROM node:22-alpine AS deps
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
 # Install system dependencies
 RUN apk add --no-cache \
-    dumb-init \
     python3 \
     make \
     g++
 
-# Copy only package files first (for caching)
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies - this layer will be cached
+# Install dependencies
 RUN npm install --legacy-peer-deps
+
+# Copy source code
+COPY . .
+
+# Build admin panel HERE (during image build)
+RUN npm run build
 
 # Production stage
 FROM node:22-alpine
 
 WORKDIR /app
 
-# Install dumb-init
+# Install only runtime dependencies
 RUN apk add --no-cache dumb-init
 
-# Copy node_modules from deps stage
-COPY --from=deps /app/node_modules ./node_modules
-
-# Copy package files
-COPY package*.json ./
-
-# Copy source code
-COPY . .
+# Copy built files from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/config ./config
+COPY --from=builder /app/database ./database
+COPY --from=builder /app/src ./src
 
 # Create necessary directories
-RUN mkdir -p public/uploads .tmp data build && \
-    chmod -R 777 .tmp data public/uploads build
+RUN mkdir -p public/uploads .tmp data && \
+    chmod -R 777 .tmp data public/uploads
 
-# Expose port
 EXPOSE 1337
-
-# Set environment
 ENV NODE_ENV=production
 
-# Build and start
+# Just start - NO building!
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["sh", "-c", "npm run build && npm start"]
+CMD ["npm", "start"]
