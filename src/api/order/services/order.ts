@@ -22,6 +22,12 @@ interface OrderItem {
 interface CreateOrderWithItemsParams {
   customerEmail: string;
   customerName: string;
+  customerPhone?: string;
+  customerAddress?: string;
+  customerCity?: string;
+  customerCountry?: string;
+  note?: string;
+  agreedToTerms: boolean;
   items: OrderItem[];
 }
 
@@ -29,7 +35,17 @@ export default factories.createCoreService(
   'api::order.order',
   ({ strapi }) => ({
     async createOrderWithItems(params: CreateOrderWithItemsParams) {
-      const { customerEmail, customerName, items } = params;
+      const {
+        customerEmail,
+        customerName,
+        customerPhone,
+        customerAddress,
+        customerCity,
+        customerCountry,
+        note,
+        agreedToTerms,
+        items,
+      } = params;
 
       try {
         console.log('Creating order with items:', {
@@ -49,6 +65,12 @@ export default factories.createCoreService(
           data: {
             customer_email: customerEmail,
             customer_name: customerName,
+            customer_phone: customerPhone,
+            customer_address: customerAddress,
+            customer_city: customerCity,
+            customer_country: customerCountry,
+            note: note,
+            agreed_to_terms: agreedToTerms,
             total_amount: totalAmount,
             currency: 'usd',
             payment_status: 'pending',

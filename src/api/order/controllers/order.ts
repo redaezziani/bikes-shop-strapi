@@ -13,7 +13,17 @@ export default factories.createCoreController(
      */
     async checkout(ctx) {
       try {
-        const { customerEmail, customerName, items } = ctx.request.body;
+        const {
+          customerEmail,
+          customerName,
+          customerPhone,
+          customerAddress,
+          customerCity,
+          customerCountry,
+          note,
+          agreedToTerms,
+          items,
+        } = ctx.request.body;
 
         console.log(items);
 
@@ -23,10 +33,22 @@ export default factories.createCoreController(
           );
         }
 
+        if (!agreedToTerms) {
+          return ctx.badRequest(
+            'You must agree to the terms and privacy policy',
+          );
+        }
+
         const orderService = strapi.service('api::order.order');
         const order = await orderService.createOrderWithItems({
           customerEmail,
           customerName,
+          customerPhone,
+          customerAddress,
+          customerCity,
+          customerCountry,
+          note,
+          agreedToTerms,
           items,
         });
 
