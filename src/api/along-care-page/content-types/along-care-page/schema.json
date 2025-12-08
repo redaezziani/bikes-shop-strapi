@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "along_care_page",
+  "info": {
+    "singularName": "along-care-page",
+    "pluralName": "along-care-pages",
+    "displayName": "Along Care Page",
+    "description": "Along Care page content with title, description, and markdown"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
