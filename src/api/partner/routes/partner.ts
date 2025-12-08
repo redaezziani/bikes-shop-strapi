@@ -4,4 +4,4 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreRouter('api::partner.partner');
+export default factories.createCoreRouter('api::partner.partner' as any);

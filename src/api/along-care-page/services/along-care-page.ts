@@ -4,4 +4,4 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreService('api::along-care-page.along-care-page');
+export default factories.createCoreService('api::along-care-page.along-care-page' as any);
