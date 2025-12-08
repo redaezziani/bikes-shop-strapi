@@ -18,6 +18,31 @@
       "type": "email",
       "required": true
     },
+    "customer_phone": {
+      "type": "string",
+      "required": false
+    },
+    "customer_address": {
+      "type": "text",
+      "required": false
+    },
+    "customer_city": {
+      "type": "string",
+      "required": false
+    },
+    "customer_country": {
+      "type": "string",
+      "required": false
+    },
+    "note": {
+      "type": "text",
+      "required": false
+    },
+    "agreed_to_terms": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
     "total_amount": {
       "type": "decimal",
       "required": true
