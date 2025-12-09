@@ -226,8 +226,15 @@ export default factories.createCoreController(
           paymentIntent: updatedOrder.stripe_payment_intent,
         });
 
-        // TODO: Send confirmation email
-        // await strapi.service('api::order.email').sendOrderConfirmation(orderId);
+        // Send confirmation email to customer and admin
+        try {
+          const emailService = strapi.service('api::order.email');
+          await emailService.sendOrderConfirmation(orderId);
+          console.log(`✓ Order confirmation emails sent for order ${orderId}`);
+        } catch (emailError) {
+          console.error('Failed to send order confirmation emails:', emailError);
+          // Don't throw error - order is still valid even if email fails
+        }
       } catch (error) {
         console.error('Error handling checkout.session.completed:', error);
         throw error;

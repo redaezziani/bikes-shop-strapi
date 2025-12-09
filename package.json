@@ -25,6 +25,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
+    "resend": "^6.5.2",
     "strapi-plugin-ckeditor": "^0.1.0",
     "strapi-plugin-react-editorjs": "^1.5.1",
     "stripe": "^20.0.0",
