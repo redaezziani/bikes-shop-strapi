@@ -226,6 +226,17 @@ export default factories.createCoreController(
           paymentIntent: updatedOrder.stripe_payment_intent,
         });
 
+        // Decrement product inventory
+        try {
+          const orderService = strapi.service('api::order.order');
+          await orderService.decrementInventory(orderId);
+          console.log(`✓ Inventory decremented for order ${orderId}`);
+        } catch (inventoryError) {
+          console.error('Failed to decrement inventory:', inventoryError);
+          // Don't throw error - order is still valid even if inventory update fails
+          // You may want to log this to a monitoring system for manual review
+        }
+
         // Send confirmation email to customer and admin
         try {
           const emailService = strapi.service('api::order.email');

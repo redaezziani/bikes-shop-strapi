@@ -34,6 +34,84 @@ interface CreateOrderWithItemsParams {
 export default factories.createCoreService(
   'api::order.order',
   ({ strapi }) => ({
+    /**
+     * Decrement product inventory after successful payment
+     */
+    async decrementInventory(orderId: number) {
+      try {
+        console.log(`Decrementing inventory for order ${orderId}`);
+
+        // Fetch order with items
+        const orders = await strapi.documents('api::order.order').findMany({
+          filters: { id: { $eq: orderId } },
+          populate: ['items', 'items.product', 'items.accessory'],
+        });
+
+        if (orders.length === 0) {
+          throw new Error(`Order ${orderId} not found`);
+        }
+
+        const order = orders[0];
+
+        // Process each order item
+        for (const item of order.items || []) {
+          if (item.item_type === 'bike' && item.product && item.color_name) {
+            // Get the full product with colors
+            const product = await strapi
+              .documents('api::product.product')
+              .findOne({
+                documentId: item.product.documentId,
+                populate: ['colors'],
+              });
+
+            if (!product || !product.colors) {
+              console.warn(
+                `Product ${item.product.documentId} not found or has no colors`,
+              );
+              continue;
+            }
+
+            // Find the specific color and decrement its quantity
+            const updatedColors = product.colors.map((color: any) => {
+              if (color.name === item.color_name) {
+                const newQuantity = Math.max(0, (color.quantity || 0) - item.quantity);
+                console.log(
+                  `Product ${product.name}, Color ${color.name}: ${color.quantity} -> ${newQuantity}`,
+                );
+                return {
+                  ...color,
+                  quantity: newQuantity,
+                };
+              }
+              return color;
+            });
+
+            // Update the product with new color quantities
+            await strapi.documents('api::product.product').update({
+              documentId: product.documentId,
+              data: {
+                colors: updatedColors,
+              },
+            });
+
+            console.log(
+              `✓ Decremented ${item.quantity} units of ${product.name} (${item.color_name})`,
+            );
+          } else if (item.item_type === 'accessory' && item.accessory) {
+            // For accessories, you might want to add quantity tracking in the future
+            console.log(
+              `Accessory inventory management not implemented: ${item.accessory.name}`,
+            );
+          }
+        }
+
+        console.log(`✓ Inventory decremented successfully for order ${orderId}`);
+      } catch (error) {
+        console.error('Error decrementing inventory:', error);
+        throw error;
+      }
+    },
+
     async createOrderWithItems(params: CreateOrderWithItemsParams) {
       const {
         customerEmail,
