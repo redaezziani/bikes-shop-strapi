@@ -100,7 +100,7 @@ export default factories.createCoreService(
           } else if (item.item_type === 'accessory' && item.accessory) {
             // For accessories, you might want to add quantity tracking in the future
             console.log(
-              `Accessory inventory management not implemented: ${item.accessory.name}`,
+              `Accessory inventory management not implemented: ${item.accessory.title}`,
             );
           }
         }
