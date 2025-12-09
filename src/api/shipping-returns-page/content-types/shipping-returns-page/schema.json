@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "shipping_returns_page",
+  "info": {
+    "singularName": "shipping-returns-page",
+    "pluralName": "shipping-returns-pages",
+    "displayName": "Shipping and Returns Page",
+    "description": "Shipping and Returns page content with title, description, and markdown"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

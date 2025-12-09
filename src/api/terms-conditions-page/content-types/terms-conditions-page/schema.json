@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "terms_conditions_page",
+  "info": {
+    "singularName": "terms-conditions-page",
+    "pluralName": "terms-conditions-pages",
+    "displayName": "Terms and Conditions Page",
+    "description": "Terms and Conditions page content with title, description, and markdown"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

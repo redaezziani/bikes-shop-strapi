@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "warranty_page",
+  "info": {
+    "singularName": "warranty-page",
+    "pluralName": "warranty-pages",
+    "displayName": "Warranty Page",
+    "description": "Warranty page content with title, description, and markdown"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
