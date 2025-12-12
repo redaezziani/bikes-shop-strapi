@@ -467,6 +467,37 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
+  collectionName: 'about_us_page';
+  info: {
+    description: 'About Us page content with title, description, and markdown';
+    displayName: 'About Us Page';
+    pluralName: 'about-us-pages';
+    singularName: 'about-us-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::about-us-page.about-us-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAccessoryAccessory extends Struct.CollectionTypeSchema {
   collectionName: 'accessories';
   info: {
@@ -594,6 +625,38 @@ export interface ApiContactSubmissionContactSubmission
     name: Schema.Attribute.String & Schema.Attribute.Required;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGuidesStoriesPageGuidesStoriesPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'guides_stories_page';
+  info: {
+    description: 'Guides & Stories page content with title, description, and markdown';
+    displayName: 'Guides & Stories Page';
+    pluralName: 'guides-stories-pages';
+    singularName: 'guides-stories-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::guides-stories-page.guides-stories-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -808,7 +871,8 @@ export interface ApiSectionOneSectionOne extends Struct.CollectionTypeSchema {
   };
   attributes: {
     button_text: Schema.Attribute.String;
-    cover_image: Schema.Attribute.Media<'images'>;
+    cover_image_desktop: Schema.Attribute.Media<'images'>;
+    cover_image_mobile: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -876,7 +940,8 @@ export interface ApiSectionTwoSectionTwo extends Struct.CollectionTypeSchema {
   };
   attributes: {
     button_text: Schema.Attribute.String;
-    cover_image: Schema.Attribute.Media<'images'>;
+    cover_image_desktop: Schema.Attribute.Media<'images'>;
+    cover_image_mobile: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1503,10 +1568,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::about-us-page.about-us-page': ApiAboutUsPageAboutUsPage;
       'api::accessory.accessory': ApiAccessoryAccessory;
       'api::along-care-page.along-care-page': ApiAlongCarePageAlongCarePage;
       'api::blog.blog': ApiBlogBlog;
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
+      'api::guides-stories-page.guides-stories-page': ApiGuidesStoriesPageGuidesStoriesPage;
       'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;
       'api::partner.partner': ApiPartnerPartner;
