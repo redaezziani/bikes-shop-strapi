@@ -11,7 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "cover_image": {
+    "cover_image_desktop": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "cover_image_mobile": {
       "type": "media",
       "multiple": false,
       "allowedTypes": ["images"]
