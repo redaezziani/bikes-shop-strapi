@@ -762,7 +762,7 @@ export interface ApiPartnerPartner extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    city: Schema.Attribute.String & Schema.Attribute.Required;
+    cities: Schema.Attribute.JSON & Schema.Attribute.Required;
     country: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

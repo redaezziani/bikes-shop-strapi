@@ -20,8 +20,8 @@
       "type": "string",
       "required": true
     },
-    "city": {
-      "type": "string",
+    "cities": {
+      "type": "json",
       "required": true
     },
     "link": {
