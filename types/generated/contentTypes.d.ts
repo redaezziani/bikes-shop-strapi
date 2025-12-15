@@ -994,6 +994,37 @@ export interface ApiShippingReturnsPageShippingReturnsPage
   };
 }
 
+export interface ApiSupportPageSupportPage extends Struct.SingleTypeSchema {
+  collectionName: 'support_page';
+  info: {
+    description: 'Support page content with categorized FAQs';
+    displayName: 'Support Page';
+    pluralName: 'support-pages';
+    singularName: 'support-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categories: Schema.Attribute.Component<'faq-category.faq-category', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::support-page.support-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTermsConditionsPageTermsConditionsPage
   extends Struct.SingleTypeSchema {
   collectionName: 'terms_conditions_page';
@@ -1583,6 +1614,7 @@ declare module '@strapi/strapi' {
       'api::section-three.section-three': ApiSectionThreeSectionThree;
       'api::section-two.section-two': ApiSectionTwoSectionTwo;
       'api::shipping-returns-page.shipping-returns-page': ApiShippingReturnsPageShippingReturnsPage;
+      'api::support-page.support-page': ApiSupportPageSupportPage;
       'api::terms-conditions-page.terms-conditions-page': ApiTermsConditionsPageTermsConditionsPage;
       'api::warranty-page.warranty-page': ApiWarrantyPageWarrantyPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;

@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "support_page",
+  "info": {
+    "singularName": "support-page",
+    "pluralName": "support-pages",
+    "displayName": "Support Page",
+    "description": "Support page content with categorized FAQs"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "categories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "faq-category.faq-category",
+      "required": false
+    }
+  }
+}

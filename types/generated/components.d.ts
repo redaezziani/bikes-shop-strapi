@@ -1,5 +1,31 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface FaqCategoryFaqCategory extends Struct.ComponentSchema {
+  collectionName: 'components_faq_category_faq_categories';
+  info: {
+    description: 'Category grouping for FAQs';
+    displayName: 'FAQ Category';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    faqs: Schema.Attribute.Component<'faq.faq', true>;
+    icon: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface FaqFaq extends Struct.ComponentSchema {
+  collectionName: 'components_faq_faqs';
+  info: {
+    description: 'Frequently Asked Questions component';
+    displayName: 'FAQ';
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ProductColorOption extends Struct.ComponentSchema {
   collectionName: 'components_product_color_options';
   info: {
@@ -89,6 +115,8 @@ export interface SharedSlider extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'faq-category.faq-category': FaqCategoryFaqCategory;
+      'faq.faq': FaqFaq;
       'product.color-option': ProductColorOption;
       'product.specs': ProductSpecs;
       'shared.media': SharedMedia;

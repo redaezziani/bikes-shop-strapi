@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_faq_category_faq_categories",
+  "info": {
+    "displayName": "FAQ Category",
+    "description": "Category grouping for FAQs"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "icon": {
+      "type": "string",
+      "required": false
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "faq.faq",
+      "required": false
+    }
+  }
+}
