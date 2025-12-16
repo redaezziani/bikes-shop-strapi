@@ -180,8 +180,26 @@ export default factories.createCoreService(
                 ? item.product
                 : item.product.documentId;
 
-            orderItem.product = productId;
-            console.log('Adding product to order item:', { productId });
+            // Verify product exists before creating relation
+            try {
+              const product = await strapi
+                .documents('api::product.product')
+                .findOne({
+                  documentId: productId,
+                  status: 'published',
+                });
+
+              if (product) {
+                orderItem.product = productId;
+                console.log('Adding product to order item:', { productId });
+              } else {
+                console.error(`Product ${productId} not found or not published`);
+                throw new Error(`Product ${productId} not available`);
+              }
+            } catch (err) {
+              console.error(`Error verifying product ${productId}:`, err);
+              throw new Error(`Product ${productId} not available`);
+            }
           } else if (item.item_type === 'accessory' && item.accessory) {
             // Handle both object and string formats
             const accessoryId =
@@ -189,8 +207,26 @@ export default factories.createCoreService(
                 ? item.accessory
                 : item.accessory.documentId;
 
-            orderItem.accessory = accessoryId;
-            console.log('Adding accessory to order item:', { accessoryId });
+            // Verify accessory exists before creating relation
+            try {
+              const accessory = await strapi
+                .documents('api::accessory.accessory')
+                .findOne({
+                  documentId: accessoryId,
+                  status: 'published',
+                });
+
+              if (accessory) {
+                orderItem.accessory = accessoryId;
+                console.log('Adding accessory to order item:', { accessoryId });
+              } else {
+                console.error(`Accessory ${accessoryId} not found or not published`);
+                throw new Error(`Accessory ${accessoryId} not available`);
+              }
+            } catch (err) {
+              console.error(`Error verifying accessory ${accessoryId}:`, err);
+              throw new Error(`Accessory ${accessoryId} not available`);
+            }
           }
 
           // Add color info if available
