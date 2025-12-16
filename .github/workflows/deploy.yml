@@ -1,5 +1,4 @@
 name: Deploy Strapi to VPS
-
 on:
   push:
     branches: [master]
@@ -11,7 +10,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,7 +37,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: Deploy to VPS
-
     steps:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
@@ -49,6 +46,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             echo "🚀 Starting Strapi deployment..."
+
             cd ~/bikes-shop-strapi
 
             echo "📥 Pulling latest code..."
@@ -81,6 +79,11 @@ jobs:
 
             # Email
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+
+            # Redis
+            REDIS_HOST=redis
+            REDIS_PORT=6379
+            REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
             EOF
 
             echo "🔐 Login to GitHub Container Registry..."
@@ -89,12 +92,20 @@ jobs:
             echo "📦 Pulling latest image..."
             docker pull ghcr.io/redaezziani/bikes-shop-strapi:latest
 
-            echo "🐳 Restarting container..."
+            echo "🐳 Stopping containers..."
             docker compose down
+
+            echo "🚀 Starting containers with Redis..."
             docker compose up -d
 
-            echo "⏳ Waiting for Strapi to start..."
-            sleep 20
+            echo "⏳ Waiting for services to start..."
+            sleep 30
+
+            echo "✅ Checking Redis connection..."
+            docker exec bikes-shop-redis redis-cli -a ${{ secrets.REDIS_PASSWORD }} ping
+
+            echo "✅ Checking Strapi health..."
+            docker ps | grep bikes-shop
 
             echo "🧹 Cleaning up old images..."
             docker image prune -f
@@ -103,7 +114,7 @@ jobs:
 
       - name: Deployment Status
         if: success()
-        run: echo "✅ Strapi deployed successfully!"
+        run: echo "✅ Strapi with Redis deployed successfully!"
 
       - name: Deployment Failed
         if: failure()
