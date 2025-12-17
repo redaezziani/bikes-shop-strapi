@@ -79,11 +79,6 @@ jobs:
 
             # Email
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
-
-            # Redis
-            REDIS_HOST=redis
-            REDIS_PORT=6379
-            REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
             EOF
 
             echo "🔐 Login to GitHub Container Registry..."
@@ -95,14 +90,11 @@ jobs:
             echo "🐳 Stopping containers..."
             docker compose down
 
-            echo "🚀 Starting containers with Redis..."
+            echo "🚀 Starting containers..."
             docker compose up -d
 
             echo "⏳ Waiting for services to start..."
             sleep 30
-
-            echo "✅ Checking Redis connection..."
-            docker exec bikes-shop-redis redis-cli -a ${{ secrets.REDIS_PASSWORD }} ping
 
             echo "✅ Checking Strapi health..."
             docker ps | grep bikes-shop
@@ -114,7 +106,7 @@ jobs:
 
       - name: Deployment Status
         if: success()
-        run: echo "✅ Strapi with Redis deployed successfully!"
+        run: echo "✅ Strapi deployed successfully!"
 
       - name: Deployment Failed
         if: failure()
