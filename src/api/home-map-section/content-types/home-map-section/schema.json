@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "home_map_section",
+  "info": {
+    "singularName": "home-map-section",
+    "pluralName": "home-map-sections",
+    "displayName": "Home Map Section",
+    "description": "Map section for the home page with title, description, image, and CTA"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "button_text": {
+      "type": "string",
+      "required": true
+    },
+    "external_link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
