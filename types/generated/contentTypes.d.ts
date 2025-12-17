@@ -663,6 +663,40 @@ export interface ApiGuidesStoriesPageGuidesStoriesPage
   };
 }
 
+export interface ApiHomeMapSectionHomeMapSection
+  extends Struct.SingleTypeSchema {
+  collectionName: 'home_map_section';
+  info: {
+    description: 'Map section for the home page with title, description, image, and CTA';
+    displayName: 'Home Map Section';
+    pluralName: 'home-map-sections';
+    singularName: 'home-map-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    button_text: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    external_link: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-map-section.home-map-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOrderItemOrderItem extends Struct.CollectionTypeSchema {
   collectionName: 'order_items';
   info: {
@@ -1605,6 +1639,7 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::guides-stories-page.guides-stories-page': ApiGuidesStoriesPageGuidesStoriesPage;
+      'api::home-map-section.home-map-section': ApiHomeMapSectionHomeMapSection;
       'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;
       'api::partner.partner': ApiPartnerPartner;

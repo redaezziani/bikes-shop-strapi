@@ -70,6 +70,10 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "orderIndex": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
