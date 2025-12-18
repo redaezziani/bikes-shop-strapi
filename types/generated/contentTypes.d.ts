@@ -732,6 +732,9 @@ export interface ApiOrderItemOrderItem extends Struct.CollectionTypeSchema {
     quantity: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<1>;
+    sku: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     subtotal: Schema.Attribute.Decimal & Schema.Attribute.Required;
     unit_price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

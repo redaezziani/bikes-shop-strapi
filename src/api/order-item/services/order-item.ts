@@ -64,7 +64,7 @@ export default factories.createCoreService(
       // Ensure SKU is unique
       while (!isUnique && attempts < maxAttempts) {
         const existing = await strapi.documents('api::order-item.order-item').findMany({
-          filters: { sku: { $eq: sku } },
+          filters: { sku: { $eq: sku } } as any,
         });
 
         if (existing.length === 0) {
@@ -86,13 +86,7 @@ export default factories.createCoreService(
 
       // Create the order item with the generated SKU
       const createdItem: any = await strapi.documents('api::order-item.order-item').create({
-        data: itemData,
-      });
-
-      // Manually set the SKU using update since it might not be in the create response
-      await strapi.documents('api::order-item.order-item').update({
-        documentId: createdItem.documentId,
-        data: { sku },
+        data: { ...itemData, sku } as any,
       });
 
       return { ...createdItem, sku };
