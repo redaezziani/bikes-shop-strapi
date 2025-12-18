@@ -49,6 +49,11 @@
       "relation": "manyToOne",
       "target": "api::order.order",
       "inversedBy": "items"
+    },
+    "sku": {
+      "type": "string",
+      "unique": true,
+      "required": true
     }
   }
 }

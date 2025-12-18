@@ -17,6 +17,7 @@ interface OrderItem {
   unit_price: number;
   color_name?: string;
   color_hex?: string;
+  sku?: string; // Auto-generated SKU
 }
 
 interface CreateOrderWithItemsParams {
@@ -172,6 +173,8 @@ export default factories.createCoreService(
             order: order.documentId,
           };
 
+          let productName = '';
+
           // Add product or accessory relation
           if (item.item_type === 'bike' && item.product) {
             // Handle both object and string formats
@@ -191,7 +194,8 @@ export default factories.createCoreService(
 
               if (product) {
                 orderItem.product = productId;
-                console.log('Adding product to order item:', { productId });
+                productName = product.name; // Get product name for SKU
+                console.log('Adding product to order item:', { productId, name: product.name });
               } else {
                 console.error(`Product ${productId} not found or not published`);
                 throw new Error(`Product ${productId} not available`);
@@ -218,7 +222,8 @@ export default factories.createCoreService(
 
               if (accessory) {
                 orderItem.accessory = accessoryId;
-                console.log('Adding accessory to order item:', { accessoryId });
+                productName = accessory.title; // Get accessory title for SKU
+                console.log('Adding accessory to order item:', { accessoryId, title: accessory.title });
               } else {
                 console.error(`Accessory ${accessoryId} not found or not published`);
                 throw new Error(`Accessory ${accessoryId} not available`);
@@ -237,15 +242,20 @@ export default factories.createCoreService(
             orderItem.color_hex = item.color_hex;
           }
 
-          const createdItem = await strapi
-            .documents('api::order-item.order-item')
-            .create({
-              data: orderItem,
-            });
+          // Use the order-item service to create item with auto-generated SKU
+          const orderItemService = strapi.service('api::order-item.order-item');
+          const createdItem = await orderItemService.createWithSKU({
+            ...orderItem,
+            order: order.id, // Pass the numeric ID for SKU generation
+            productName, // Pass product/accessory name for SKU generation
+          });
 
           console.log('Order item created:', {
             id: createdItem.id,
             itemType: item.item_type,
+            productName,
+            color: item.color_name,
+            sku: createdItem.sku,
           });
         }
 
