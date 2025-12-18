@@ -189,7 +189,6 @@ export default factories.createCoreService(
                 .documents('api::product.product')
                 .findOne({
                   documentId: productId,
-                  status: 'published',
                 });
 
               if (product) {
@@ -197,7 +196,7 @@ export default factories.createCoreService(
                 productName = product.name; // Get product name for SKU
                 console.log('Adding product to order item:', { productId, name: product.name });
               } else {
-                console.error(`Product ${productId} not found or not published`);
+                console.error(`Product ${productId} not found`);
                 throw new Error(`Product ${productId} not available`);
               }
             } catch (err) {
@@ -217,7 +216,6 @@ export default factories.createCoreService(
                 .documents('api::accessory.accessory')
                 .findOne({
                   documentId: accessoryId,
-                  status: 'published',
                 });
 
               if (accessory) {
@@ -225,7 +223,7 @@ export default factories.createCoreService(
                 productName = accessory.title; // Get accessory title for SKU
                 console.log('Adding accessory to order item:', { accessoryId, title: accessory.title });
               } else {
-                console.error(`Accessory ${accessoryId} not found or not published`);
+                console.error(`Accessory ${accessoryId} not found`);
                 throw new Error(`Accessory ${accessoryId} not available`);
               }
             } catch (err) {
