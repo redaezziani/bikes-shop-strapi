@@ -107,8 +107,8 @@ export default {
         payment_method_types: ['card'],
         line_items: lineItems,
         mode: 'payment',
-        success_url: `${process.env.FRONTEND_URL}`,
-        cancel_url: `${process.env.FRONTEND_URL}`,
+        success_url: `${process.env.FRONTEND_URL}?order=success`,
+        cancel_url: `${process.env.FRONTEND_URL}?order=cancelled`,
         customer_email: customerEmail,
         client_reference_id: `order_${orderId}`,
         metadata: {
