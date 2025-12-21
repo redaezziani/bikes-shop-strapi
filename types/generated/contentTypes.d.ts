@@ -589,38 +589,6 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
       Schema.Attribute.Private;
     meta_description: Schema.Attribute.Text;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiStoryStory extends Struct.CollectionTypeSchema {
-  collectionName: 'stories';
-  info: {
-    description: 'Story model for guides and stories section with title, content, featured image, and publication date';
-    displayName: 'Story';
-    pluralName: 'stories';
-    singularName: 'story';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    category: Schema.Attribute.String;
-    content: Schema.Attribute.RichText & Schema.Attribute.Required;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    excerpt: Schema.Attribute.Text;
-    featured_image: Schema.Attribute.Media<'images'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
-      Schema.Attribute.Private;
-    meta_description: Schema.Attribute.Text;
     orderIndex: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
@@ -1686,7 +1654,6 @@ declare module '@strapi/strapi' {
       'api::section-three.section-three': ApiSectionThreeSectionThree;
       'api::section-two.section-two': ApiSectionTwoSectionTwo;
       'api::shipping-returns-page.shipping-returns-page': ApiShippingReturnsPageShippingReturnsPage;
-      'api::story.story': ApiStoryStory;
       'api::support-page.support-page': ApiSupportPageSupportPage;
       'api::terms-conditions-page.terms-conditions-page': ApiTermsConditionsPageTermsConditionsPage;
       'api::warranty-page.warranty-page': ApiWarrantyPageWarrantyPage;
