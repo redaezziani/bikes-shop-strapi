@@ -37,6 +37,7 @@
     "meta_description": {
       "type": "text"
     },
+    
     "orderIndex": {
       "type": "integer",
       "default": 0
