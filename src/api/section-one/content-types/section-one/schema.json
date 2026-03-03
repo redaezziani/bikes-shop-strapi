@@ -38,6 +38,12 @@
     "button_text": {
       "type": "string",
       "required": false
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "video_mime": {
+      "type": "string"
     }
   }
 }
