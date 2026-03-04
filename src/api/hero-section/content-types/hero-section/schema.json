@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "hero_section",
+  "info": {
+    "singularName": "hero-section",
+    "pluralName": "hero-sections",
+    "displayName": "Hero Section",
+    "description": "Hero section with heading, description, and video"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "video_mime": {
+      "type": "string"
+    }
+  }
+}
