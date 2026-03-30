@@ -664,6 +664,38 @@ export interface ApiGuidesStoriesPageGuidesStoriesPage
   };
 }
 
+export interface ApiHeroSectionHeroSection extends Struct.SingleTypeSchema {
+  collectionName: 'hero_section';
+  info: {
+    description: 'Hero section with heading, description, and video';
+    displayName: 'Hero Section';
+    pluralName: 'hero-sections';
+    singularName: 'hero-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    heading: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hero-section.hero-section'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    video_mime: Schema.Attribute.String;
+    video_url: Schema.Attribute.String;
+  };
+}
+
 export interface ApiHomeMapSectionHomeMapSection
   extends Struct.SingleTypeSchema {
   collectionName: 'home_map_section';
@@ -923,12 +955,14 @@ export interface ApiSectionOneSectionOne extends Struct.CollectionTypeSchema {
       'api::section-one.section-one'
     > &
       Schema.Attribute.Private;
-    product: Schema.Attribute.Relation<'manyToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    video_mime: Schema.Attribute.String;
+    video_url: Schema.Attribute.String;
   };
 }
 
@@ -1644,6 +1678,7 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::contact-submission.contact-submission': ApiContactSubmissionContactSubmission;
       'api::guides-stories-page.guides-stories-page': ApiGuidesStoriesPageGuidesStoriesPage;
+      'api::hero-section.hero-section': ApiHeroSectionHeroSection;
       'api::home-map-section.home-map-section': ApiHomeMapSectionHomeMapSection;
       'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;

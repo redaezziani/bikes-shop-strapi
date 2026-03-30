@@ -11,6 +11,8 @@ export default [
         'http://72.61.203.223:3000',
         'https://alongweride.com',
         'https://www.alongweride.com',
+        'https://weridealong.com',
+        'https://www.weridealong.com',
       ],
       credentials: true,
       headers: [
