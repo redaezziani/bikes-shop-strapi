@@ -29,7 +29,7 @@ export default () => ({
 
       // Send email to customer
       const customerEmail = await resend.emails.send({
-        from: 'onboarding@resend.dev', // Default Resend email
+        from: 'hello@weridealong.com',
         to: order.customer_email,
         subject: `Order Confirmation #${order.id}`,
         html: emailHtml,
@@ -38,9 +38,9 @@ export default () => ({
       console.log('Customer email sent:', customerEmail);
 
       // Send email to admin/yourself
-      const adminEmail = process.env.ADMIN_EMAIL || order.customer_email;
+      const adminEmail = process.env.ADMIN_EMAIL || 'hello@weridealong.com';
       const adminEmailResult = await resend.emails.send({
-        from: 'onboarding@resend.dev', // Default Resend email
+        from: 'hello@weridealong.com',
         to: adminEmail,
         subject: `New Order Received #${order.id}`,
         html: emailHtml,
