@@ -920,6 +920,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     short_description: Schema.Attribute.Text;
+    sku: Schema.Attribute.String & Schema.Attribute.Unique;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     specs: Schema.Attribute.Component<'product.specs', true>;
     specs_image: Schema.Attribute.Media<'images'>;
@@ -1124,6 +1125,38 @@ export interface ApiTermsConditionsPageTermsConditionsPage
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUsedModelUsedModel extends Struct.CollectionTypeSchema {
+  collectionName: 'used_models';
+  info: {
+    description: 'Second-hand bike models with name, description, price, and images';
+    displayName: 'Used Model';
+    pluralName: 'used-models';
+    singularName: 'used-model';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    images: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::used-model.used-model'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1691,6 +1724,7 @@ declare module '@strapi/strapi' {
       'api::shipping-returns-page.shipping-returns-page': ApiShippingReturnsPageShippingReturnsPage;
       'api::support-page.support-page': ApiSupportPageSupportPage;
       'api::terms-conditions-page.terms-conditions-page': ApiTermsConditionsPageTermsConditionsPage;
+      'api::used-model.used-model': ApiUsedModelUsedModel;
       'api::warranty-page.warranty-page': ApiWarrantyPageWarrantyPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

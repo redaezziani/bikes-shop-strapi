@@ -1,0 +1,32 @@
+{
+  "collectionName": "used_models",
+  "info": {
+    "singularName": "used-model",
+    "pluralName": "used-models",
+    "displayName": "Used Model",
+    "description": "Second-hand bike models with name, description, price, and images"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}
